@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- User user = new User(); -->
+	<bean id="user" class="com.rays.test.User">
+		<property name="name" value="Ram"></property> <!-- setName("Ram"); -->
+		<property name="address" value="Bhopal"></property> <!-- setAddress("Bhopal"); -->
+	</bean>
+	
+	<bean id="user1" class="com.rays.test.User">
+		<property name="name" value="Shyam"></property> <!-- setName("Shyam"); -->
+		<property name="address" value="Indore"></property> <!-- setAddress("Bhondorepal"); -->
+	</bean>
+
+	<!-- User user2 = new User("Akbar", "Dehli"); -->
+	<bean id="user2" class="com.rays.test.User">
+		<constructor-arg value="Akbar"></constructor-arg>
+		<constructor-arg value="Delhi"></constructor-arg>
+	</bean>
+	
+	<bean id = "user3" class="com.rays.test.User">
+	<property name="name" value="Lucky"></property>
+	<property name="address" value="Gwalior"></property>
+	</bean>
+	
+	<bean id= "user4" class = "com.rays.test.User">
+	<constructor-arg value ="Virat"></constructor-arg>
+	<constructor-arg value ="London"></constructor-arg>
+	</bean>
+	
+</beans>
