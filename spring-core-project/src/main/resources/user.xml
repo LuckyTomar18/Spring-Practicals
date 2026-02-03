@@ -30,4 +30,10 @@
 	<constructor-arg value ="London"></constructor-arg>
 	</bean>
 	
+	<bean id= "order" class="com.rays.test.Order">
+	<property name="orderNo" value="1"></property>
+	<property name="item" value="Lays"></property>
+	<property name="name" value="Lucky"></property>
+	</bean>
+	
 </beans>
