@@ -1,5 +1,7 @@
 package com.rays.dao;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class UserDAOJDBCImpl implements UserDAOInt {
 		}
 		return maxId + 1;
 	}
-	
+
 	public long add(UserDTO dto) {
 		long pk = nextPk();
 		String sql = "insert into st_user values(?, ?, ?, ?, ?)";
@@ -43,13 +45,67 @@ public class UserDAOJDBCImpl implements UserDAOInt {
 		System.out.println("record updated successfully: " + i);
 	}
 
-
 	public void delete(int id) {
 		String sql = "delete from st_user where id = ?";
 		int i = jdbcTemplate.update(sql, id);
 		System.out.println("record deleted: " + i);
-		
-	}
-		
+
 	}
 
+	public UserDTO findByPk(int id) {
+
+		Object[] param = { id };
+		String sql = "select * from st_user where id = ?";
+		UserDTO dto = jdbcTemplate.queryForObject(sql, param, new UserMapper());
+		return dto;
+
+	}
+
+	public UserDTO authenticate(String login, String password) {
+
+		Object[] param = { login, password };
+
+		String sql = "select * from st_user where login = ? and password = ?";
+		UserDTO dto = jdbcTemplate.queryForObject(sql, param, new UserMapper());
+		return dto;
+
+	}
+
+	public UserDTO findByLogin(String login) {
+
+		Object[] param = { login };
+
+		String sql = "select * from st_user where login = ?";
+		UserDTO dto = jdbcTemplate.queryForObject(sql, param, new UserMapper());
+		return dto;
+
+	}
+
+	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
+		
+		StringBuffer sql = new StringBuffer("select * from st_user where 1 = 1");
+		if(dto != null) {
+			
+			if(dto.getFirstName() != null && dto.getFirstName().length() > 0) {
+				sql.append(" and first_name like '" + dto.getFirstName() + "%'");
+			}
+			
+			if (dto.getLastName() != null && dto.getLastName().length() > 0) {
+				sql.append(" and lastName like '" + dto.getLastName() + "%'");
+			}
+			if (dto.getLogin() != null && dto.getLogin().length() > 0) {
+				sql.append(" and login like '" + dto.getLogin() + "%'");
+			}
+			if (dto.getPassword() != null && dto.getPassword().length() > 0) {
+				sql.append(" and password like '" + dto.getPassword() + "%'");
+			}
+		}
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
+		}
+		List<UserDTO> list = jdbcTemplate.query(sql.toString(), new UserMapper());
+		return list;
+	}
+
+}
