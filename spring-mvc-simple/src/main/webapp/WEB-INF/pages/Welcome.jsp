@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Hello MVC..!</h1>
+	<%@ include file="Header.jsp"%>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div align="center">
+		<h1>Online result system</h1>
+	</div>
+	>
 </body>
 </html>
