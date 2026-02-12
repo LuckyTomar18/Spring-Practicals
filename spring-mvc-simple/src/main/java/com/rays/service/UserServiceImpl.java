@@ -18,13 +18,25 @@ public class UserServiceImpl implements UserServiceInt {
 	private UserDAOInt dao = null;
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public long add(UserDTO dto) {
+	public long add(UserDTO dto)  {
+
+		UserDTO existDto = findByLogin(dto.getLogin());
+
+		if (existDto != null) {
+			throw new RuntimeException("login id already exist");
+		}
+
 		long pk = dao.add(dto);
 		return pk;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void update(UserDTO dto) {
+	public void update(UserDTO dto)  {
+		
+		UserDTO existDto = findByLogin(dto.getLogin());
+		if (existDto != null && existDto.getId() != dto.getId()) {
+			throw new RuntimeException("login id already exist");
+		}
 		dao.update(dto);
 	}
 
@@ -50,7 +62,7 @@ public class UserServiceImpl implements UserServiceInt {
 
 	@Transactional(readOnly = true)
 	public UserDTO authenticate(String login, String password) {
-		
+
 		return dao.authenticate(login, password);
 	}
 }

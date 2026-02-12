@@ -4,10 +4,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rays.dto.UserDTO;
 import com.rays.form.LoginForm;
@@ -22,7 +24,12 @@ public class LoginCtl {
 	UserServiceInt userService;
 
 	@GetMapping
-	public String display(@ModelAttribute("form") LoginForm form) {
+	public String display(@ModelAttribute("form") LoginForm form ,  @RequestParam(required = false)String operation , HttpSession session, Model model ) {
+		
+		if(operation != null && operation.equals("logout")) {
+			session.invalidate();
+			model.addAttribute("msg", "Logout Successfully");
+			}
 		return "LoginView";
 	}
 	
