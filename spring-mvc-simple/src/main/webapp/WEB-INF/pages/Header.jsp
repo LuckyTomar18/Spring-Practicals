@@ -18,7 +18,7 @@
 		</h3>
 		<a href="<c:url value="/Welcome"/>"><b>Welcome</b></a> |
 		<a href="<c:url value="/User"/>"><b>Add User</b></a> | <a
-			href="<c:url value="/User/search"/>"><b>User List</b></a> | <a
+			href="<c:url value="/User/Search"/>"><b>User List</b></a> | <a
 			href="<c:url value="/Login?operation=logout"/>"><b>Logout</b></a>
 	</c:if>
 	<c:if test="${empty sessionScope.user}">

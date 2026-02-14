@@ -11,8 +11,14 @@
 	<%@ include file="Header.jsp"%>
 	<sf:form method="post" modelAttribute="form">
 		<div align="center">
-			<h1 style="color: navy">Add User</h1>
+			<c:if test="${form.id>0}">
+				<h1 style="color: navy">Update User</h1>
+			</c:if>
+			<c:if test="${form.id==0}">
+				<h1 style="color: navy">Add User</h1>
+			</c:if>
 			<h3 style="color: green">${msg}</h3>
+			<h3 style="color: red">${emsg}</h3>
 			<table>
 				<tr>
 					<th align="left">First Name :</th>
@@ -43,7 +49,8 @@
 				</tr>
 				<tr>
 					<th></th>
-					<td><input type="submit" name="operation" value="save"></td>
+					<td><input type="submit" name="operation"
+						value="${form.id > 0 ? 'update' : 'save'}"></td>
 				</tr>
 			</table>
 		</div>

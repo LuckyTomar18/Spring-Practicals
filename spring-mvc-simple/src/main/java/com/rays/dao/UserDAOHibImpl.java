@@ -25,7 +25,7 @@ public class UserDAOHibImpl implements UserDAOInt {
 	}
 
 	public void update(UserDTO dto) {
-		sessionFactory.getCurrentSession().update(dto);
+		sessionFactory.getCurrentSession().merge(dto);
 	}
 
 	public void delete(long pk) {
