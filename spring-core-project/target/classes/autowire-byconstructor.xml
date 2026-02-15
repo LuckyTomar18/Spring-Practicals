@@ -10,6 +10,7 @@
 	<bean id="inventory" class="com.rays.autowire.constructor.Inventory">
 		<property name="stock" value="10"></property>
 	</bean>
+	
 
 
 	<bean id="order" class="com.rays.autowire.constructor.Order1"
